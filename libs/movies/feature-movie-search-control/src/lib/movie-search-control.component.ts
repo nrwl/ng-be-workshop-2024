@@ -29,12 +29,15 @@ export class MovieSearchControlComponent
   readonly searchTerm$ = new Subject<string>();
 
   movies$ = this.searchTerm$.pipe(
-    switchMap(term =>
+    switchMap((term) =>
       term ? this.searchMovieService.searchMovies(term) : of(null)
     )
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onChange = (movie: MovieModel) => {};
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onTouched = () => {};
 
   private movieCache!: MovieModel;
@@ -70,5 +73,6 @@ export class MovieSearchControlComponent
     this.onTouched = fn;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setDisabledState(isDisabled: boolean): void {}
 }

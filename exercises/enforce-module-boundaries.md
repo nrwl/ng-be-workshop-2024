@@ -11,24 +11,23 @@ For each project, go ahead and assign the proper tag into the project.json file
 
 **Libraries in libs/movies/**
 
-* `"tags": ["scope:movies", "type:feature"]`
-* `"tags": ["scope:movies", "type:data-access"]`
-* `"tags": ["scope:movies", "type:ui"]`
-* `"tags": ["scope:movies", "type:util"]`
+- `"tags": ["scope:movies", "type:feature"]`
+- `"tags": ["scope:movies", "type:data-access"]`
+- `"tags": ["scope:movies", "type:ui"]`
+- `"tags": ["scope:movies", "type:util"]`
 
 **Libraries in libs/shared/**
 
-* `"tags": ["scope:shared", "type:feature"]`
-* `"tags": ["scope:shared", "type:data-access"]`
-* `"tags": ["scope:shared", "type:ui"]`
-* `"tags": ["scope:shared", "type:util"]`
+- `"tags": ["scope:shared", "type:feature"]`
+- `"tags": ["scope:shared", "type:data-access"]`
+- `"tags": ["scope:shared", "type:ui"]`
+- `"tags": ["scope:shared", "type:util"]`
 
 ## 2. Setup Scope Constraints
 
 Let's setup constraints between different scopes.
 
 Open the `.eslintrc.json` file in the root folder and locate the `@nx/enforce-module-boundaries` rule
-
 
 ```json
 // eslintrc.json
@@ -86,17 +85,17 @@ nx affected:lint
 
 ## 3. Setup Type Constraints
 
-Now let's introduce another dimension to our architecture enforcement ruleset. 
+Now let's introduce another dimension to our architecture enforcement ruleset.
 We are going to setup constraints within scopes & cross-scopes, **between types**.
 
 Again open the `eslintrc.json` file and add the following rules:
 
-* type feature can only depend on type feature, data-access, ui, util
-* type data-access can only depend on type data-access, util
-* type ui can only depend on type ui, util
-* type util can only depend on type util
+- type feature can only depend on type feature, data-access, ui, util
+- type data-access can only depend on type data-access, util
+- type ui can only depend on type ui, util
+- type util can only depend on type util
 
-### feature 
+### feature
 
 <details>
   <summary>Feature</summary>
@@ -108,7 +107,7 @@ Again open the `eslintrc.json` file and add the following rules:
   {
     "sourceTag": "type:feature",
     "onlyDependOnLibsWithTags": ["type:feature", "type:data-access", "type:ui", "type:util"]
-  },
+  }
 ]
 ```
 
@@ -137,7 +136,7 @@ nx affected:lint
   {
     "sourceTag": "type:data-access",
     "onlyDependOnLibsWithTags": ["type:data-access", "type:util"]
-  },
+  }
 ]
 ```
 
@@ -166,7 +165,7 @@ nx affected:lint
   {
     "sourceTag": "type:ui",
     "onlyDependOnLibsWithTags": ["type:ui", "type:util"]
-  },
+  }
 ]
 ```
 

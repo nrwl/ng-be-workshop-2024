@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 export default {
   displayName: 'movies-feature-movie-search-control',
   preset: '../../../jest.preset.js',

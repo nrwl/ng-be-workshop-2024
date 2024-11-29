@@ -1,7 +1,7 @@
 import { Directive, HostBinding, HostListener, Input } from '@angular/core';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
+   
   selector: '[tilt]',
   standalone: true,
 })

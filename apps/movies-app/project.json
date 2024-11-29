@@ -5,7 +5,7 @@
   "prefix": "movies",
   "sourceRoot": "apps/movies-app/src",
   "implicitDependencies": ["shared-ui-theme"],
-  "tags": [],
+  "tags": ["scope:movies", "type:app"],
   "targets": {
     "build": {
       "executor": "@nx/angular:application",

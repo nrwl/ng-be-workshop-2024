@@ -2,7 +2,7 @@
   "name": "shared-utils",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/utils/src",
-  "prefix": "lib",
+  "pefix": "lib",
   "tags": ["scope:shared", "type:util"],
   "projectType": "library",
   "targets": {

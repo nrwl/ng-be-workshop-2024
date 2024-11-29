@@ -12,7 +12,7 @@ const numStars = 5;
 const starsArray: number[] = new Array(numStars).fill(1);
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
+   
   selector: 'ui-star-rating',
   template: `
     <span class="tooltip">

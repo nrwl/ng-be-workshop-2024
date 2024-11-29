@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 export default {
   displayName: 'shared-feature-not-found-page',
   preset: '../../../jest.preset.js',

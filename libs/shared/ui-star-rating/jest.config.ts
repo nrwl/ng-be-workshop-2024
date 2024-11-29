@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 export default {
   displayName: 'shared-ui-star-rating',
   preset: '../../../jest.preset.js',

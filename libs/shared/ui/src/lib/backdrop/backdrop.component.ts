@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
+   
   selector: 'ui-backdrop',
   template: ``,
   styleUrls: ['./backdrop.component.scss'],

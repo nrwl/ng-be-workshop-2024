@@ -2,7 +2,7 @@
   "name": "movies-data-access-movies",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/movies/data-access-movies/src",
-  "prefix": "lib",
+  "pefix": "lib",
   "tags": ["scope:movies", "type:data-access"],
   "projectType": "library",
   "targets": {

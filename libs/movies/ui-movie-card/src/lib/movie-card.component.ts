@@ -1,4 +1,4 @@
-import { NgFor, NgIf, UpperCasePipe } from '@angular/common';
+import { CommonModule, UpperCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { MovieModel } from '@nx-workshop/shared/models';
@@ -6,7 +6,6 @@ import { StarRatingComponent } from '@nx-workshop/shared/ui-star-rating';
 import { MovieImagePipe, TiltDirective } from '@nx-workshop/shared/utils';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'movie-card',
   templateUrl: './movie-card.component.html',
   styleUrls: ['./movie-card.component.scss'],
@@ -14,10 +13,9 @@ import { MovieImagePipe, TiltDirective } from '@nx-workshop/shared/utils';
   imports: [
     TiltDirective,
     StarRatingComponent,
-    NgFor,
+    CommonModule,
     UpperCasePipe,
     MovieImagePipe,
-    NgIf,
     FastSvgComponent,
   ],
 })

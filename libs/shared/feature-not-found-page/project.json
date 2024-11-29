@@ -2,7 +2,7 @@
   "name": "shared-feature-not-found-page",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/feature-not-found-page/src",
-  "prefix": "lib",
+  "pefix": "lib",
   "tags": ["scope:shared", "type:feature"],
   "projectType": "library",
   "targets": {

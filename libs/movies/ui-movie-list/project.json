@@ -2,7 +2,7 @@
   "name": "ui-movie-list",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/movies/ui-movie-list/src",
-  "prefix": "lib",
+  "pefix": "lib",
   "projectType": "library",
   "tags": ["scope:movies", "type:ui"],
   "targets": {

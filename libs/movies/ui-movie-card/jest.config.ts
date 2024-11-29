@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 export default {
   displayName: 'movies-ui-movie-card',
   preset: '../../../jest.preset.js',

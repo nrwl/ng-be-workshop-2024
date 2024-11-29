@@ -2,7 +2,7 @@
   "name": "feature-movie-list",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/movies/feature-movie-list/src",
-  "prefix": "lib",
+  "pefix": "lib",
   "projectType": "library",
   "tags": ["scope:movies", "type:feature"],
   "targets": {

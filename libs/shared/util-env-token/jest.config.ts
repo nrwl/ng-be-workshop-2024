@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 export default {
   displayName: 'shared-util-env-token',
   preset: '../../../jest.preset.js',

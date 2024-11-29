@@ -2,7 +2,7 @@
   "name": "movies-feature-movie-search-control",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/movies/feature-movie-search-control/src",
-  "prefix": "lib",
+  "pefix": "lib",
   "tags": ["scope:movies", "type:feature"],
   "projectType": "library",
   "targets": {

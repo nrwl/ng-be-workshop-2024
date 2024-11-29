@@ -10,7 +10,7 @@ import {
 import { BackdropComponent } from '../backdrop/backdrop.component';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
+   
   selector: 'ui-side-drawer',
   template: `
     <ui-backdrop [opened]="opened" (click)="openedChange.emit(false)" />

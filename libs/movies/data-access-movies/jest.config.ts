@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 export default {
   displayName: 'movies-data-access-movies',
   preset: '../../../jest.preset.js',
