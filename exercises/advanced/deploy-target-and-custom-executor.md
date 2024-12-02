@@ -1,12 +1,14 @@
 # `📖 Excercise:` Deploy targets and custom executors
 
 ## 📚&nbsp;&nbsp;**Learning outcomes**
+
 - Learn how to use `run-commands` to create custom deploy targets
 - Understand how and when to use custome executors to wrap complex run commands into simple reusable form
 
 ## 🏋️‍♀️&nbsp;&nbsp;Steps:
 
 ### 1. Test deployment with Surge
+
 We'll use a CLI tool called [Surge](https://surge.sh/) to statically deploy the front-end. Create an account with Surge (it's free) to generate a token we will need for deployment:
 
 ```bash
@@ -17,7 +19,7 @@ npx surge token
 Build the `movies-app` applications first, and then run the following command to deploy it:
 
 ```bash
-npx surge dist/apps/movies-app https://{chose-some-unique-url-123}.surge.sh --token {your-surge-token}
+npx surge dist/apps/movies-app/browser https://{chose-some-unique-url-123}.surge.sh --token {your-surge-token}
 ```
 
 > ⚠️&nbsp;&nbsp;Make sure you chose a **unique value** for your domain above, otherwise it will fail as you won't have permission to deploy to an existing one.
@@ -27,14 +29,17 @@ Navigate to that URL in your browser to verify it's deployed.
 > ⚠️&nbsp;&nbsp;We haven't deployed our backend yet, so no we should see error in the browser, similarly to what you see if you'd only serve the `movies-app` from your local machine.
 
 ### 2. Automate deployment via executor
+
 Let's now abstract away the above command into an Nx target. Generate a new **"deploy"** target using the `@nx/workspace:run-commands` generator:
-   - under the `movies-app` project
-   - the `command` will be the same as the one you typed in the previous step
+
+- under the `movies-app` project
+- the `command` will be the same as the one you typed in the previous step
 
 <details>
 <summary>🐳 Hint: Run-commands generator</summary>
 
-  Consult the run-commands generator docs [here](https://nx.dev/packages/workspace/generators/run-commands).
+Consult the run-commands generator docs [here](https://nx.dev/packages/workspace/generators/run-commands).
+
 </details>
 <br/>
 Explore what the changes to your `project.json` are and test your new executor.
@@ -45,9 +50,11 @@ Explore what the changes to your `project.json` are and test your new executor.
 ```bash
 npx nx deploy movies-app
 ```
+
 </details>
 
 ### 3. Extract parameters to environment variables
+
 We're now storing the surge token in `project.json`. We don't want to check-in this file and risk exposing this secret token. Also, we might want to deploy to different domains depending on the environment. Let's move these out. Create a new file `apps/movies-app/.local.env` and add our secrets to it:
 
 ```env
@@ -61,15 +68,17 @@ Finally, update your "deploy" command, so that it loads the values from the ENV,
 <summary>🐳&nbsp;&nbsp;Hint</summary>
 
 ```bash
-surge dist/apps/movies-app ${SURGE_DOMAIN} --token ${SURGE_TOKEN} 
+surge dist/apps/movies-app/browser ${SURGE_DOMAIN} --token ${SURGE_TOKEN}
 ```
+
 </details>
 
 ### 4. Verify everything works
+
 Now invoke the deploy target again, and check if it all still works.
 
 > ⚠️&nbsp;&nbsp;Note for Windows users: the command might fail, as we're trying to access env variables the Linux-way.
-To make it pass, you can generate a separate `windows-deploy` executor (make sure you keep the existing `deploy` target intact - it will be used by GitHub Actions):
+> To make it pass, you can generate a separate `windows-deploy` executor (make sure you keep the existing `deploy` target intact - it will be used by GitHub Actions):
 
 <details>
 <summary>🐳&nbsp;&nbsp;Hint</summary>
@@ -78,6 +87,7 @@ To make it pass, you can generate a separate `windows-deploy` executor (make sur
 nx generate run-commands windows-deploy --project=store --command="surge dist/apps/store %SURGE_DOMAIN% --token %SURGE_TOKEN%"
 nx windows-deploy store
 ```
+
 </details>
 <br/>
 <details>
@@ -86,16 +96,19 @@ nx windows-deploy store
 > We did not load those environment variables into the deploy process anywhere. We just added a `.local.env` file. How did Nx know where to look?
 >
 > Nx [automatically picks up](https://nx.dev/recipe/define-environment-variables#setting-environment-variables) any `.env` or `.local.env` files in your workspace,
-and loads them into processes invoked for that specific app.
+> and loads them into processes invoked for that specific app.
+
 </details>
 
 ### 5. Ensure build is always run
+
 We currently have to remember to always run the build before deploying an app. Can you fix this, so that it always makes sure the app is built before we deploy?
 
 <details>
 <summary>🐳&nbsp;&nbsp;Hint: `dependsOn` parameter</summary>
 
-  Consult the project configuration docs [here](https://nx.dev/reference/project-configuration#dependson).
+Consult the project configuration docs [here](https://nx.dev/reference/project-configuration#dependson).
+
 </details>
 
 <details>
@@ -103,18 +116,15 @@ We currently have to remember to always run the build before deploying an app. C
 
 ```json
 "deploy": {
-  "executor": "nx:run-commands",
-  "outputs": [],
+  "command": "npx surge dist/apps/movies-app/browser ${SURGE_DOMAIN} --token ${SURGE_TOKEN}",
   "dependsOn": ["build"],
-  "options": {
-    "command": "surge dist/apps/store ${SURGE_DOMAIN_STORE} --token ${SURGE_TOKEN}",
-    "cwd": "/apps/movies-app"
-  }
 }
 ```
+
 </details>
 
 ### 6. Login to Fly.io and store the token
+
 Similarly to Surge earlier, we need to login to Fly.io and store the token for later use:
 
 ```bash
@@ -131,6 +141,7 @@ FLY_API_TOKEN=<your-fly-token>
 ```
 
 ### 7. Prepare TOML file for deployment
+
 Create a new file `apps/movies-api/src/fly.toml`.
 Pick a unique app name to include in the fly.toml file.
 
@@ -143,51 +154,53 @@ kill_timeout = 5
 processes = []
 
 [build]
-  builder = "paketobuildpacks/builder:base"
-  buildpacks = ["gcr.io/paketo-buildpacks/nodejs"]
+builder = "paketobuildpacks/builder:base"
+buildpacks = ["gcr.io/paketo-buildpacks/nodejs"]
 
 [env]
-  PORT = "8080"
+PORT = "8080"
 
 [experimental]
-  cmd = ["PORT=8080 node main.js"]
+cmd = ["PORT=8080 node main.js"]
 
 [[services]]
-  http_checks = []
-  internal_port = 8080
-  processes = ["app"]
-  protocol = "tcp"
-  script_checks = []
-  [services.concurrency]
-    hard_limit = 25
-    soft_limit = 20
-    type = "connections"
+http_checks = []
+internal_port = 8080
+processes = ["app"]
+protocol = "tcp"
+script_checks = []
+[services.concurrency]
+hard_limit = 25
+soft_limit = 20
+type = "connections"
 
 [[services.ports]]
-  force_https = true
-  handlers = ["http"]
-  port = 80
+force_https = true
+handlers = ["http"]
+port = 80
 
 [[services.ports]]
-  handlers = ["tls", "http"]
-  port = 443
+handlers = ["tls", "http"]
+port = 443
 
 [[services.tcp_checks]]
-  grace_period = "1s"
-  interval = "15s"
-  restart_limit = 0
-  timeout = "2s"
+grace_period = "1s"
+interval = "15s"
+restart_limit = 0
+timeout = "2s"
 ```
 
 Fly will launch a pre-build node Docker image (or you could provide your own) and then run the command you specify to launch the server.
 When we want to deploy, we'll build our app to `dist/apps/movies-api` and we need to make sure that `fly.toml` makes it to the same folder. Fly will copy the bundled code to the remote server and run the node server via `cmd = ["PORT=8080 node main.js"]`
 
 ### 8. Try the API deployment
+
 If you run `nx build movies-api` and navigate to `cd dist/apps/movies-api && node main.js` it should work, because it has access to `node_modules`. But if you copy your built sources to some other folder on your file system and then try to `node main.js` in the folder that doesn't have access to `node_modules` - it will fail.
 
 > 💡 By default, dependencies of server projects are not bundled together, as opposed to your Angular apps. If curious why, you can [read more here](https://github.com/nestjs/nest/issues/1706#issuecomment-579248915).
 
 ### 9. Include external dependencies and fly.toml in build
+
 Let's fix the above - In `project.json`, under the **production** build options for the API (`targets -> build -> configurations -> production`)
 add this as an option:
 
@@ -208,8 +221,9 @@ add this as an option:
 
 > The above option tells webpack to bundle ALL the dependencies our API requires inside `main.js`, except the ones above (which fail the build if we tell webpack to include, because they're lazily loaded).
 >
->Normally, it's not recommended to bundle any dependencies with your server bundles,
-but in this case it simplifies the deployment process.
+> Normally, it's not recommended to bundle any dependencies with your server bundles,
+> but in this case it simplifies the deployment process.
+
 </details>
 
 We also need to include our `fly.toml` in the dist folder, Update the `build` target (`targets -> build -> configurations -> production`) to include that file in the static assets:
@@ -222,16 +236,19 @@ We also need to include our `fly.toml` in the dist folder, Update the `build` ta
 ```
 
 ### 10. Build an executor
+
 We can now use our `internal-plugin` to create a custom executor. Use the `@nx/plugin:executor` generator to generate a `fly-deploy` executor:
 
 The executor should have options for:
-  - the target `dist` location
-  - the `name` of your fly app
+
+- the target `dist` location
+- the `name` of your fly app
 
 When running, your executor should perform the following tasks, using the `fly` CLI:
-  - list the current fly apps: `fly apps list`
-  - if the app doesn't exist, launch it: `fly launch --now --name=<the name of your Fly App> --region=lax`
-  - if the app exists, deploy it again: `fly deploy`
+
+- list the current fly apps: `fly apps list`
+- if the app doesn't exist, launch it: `fly launch --now --name=<the name of your Fly App> --region=lax`
+- if the app exists, deploy it again: `fly deploy`
 
 Fly launch and deploy commands need to be run in the `dist` location of your app.
 
@@ -239,8 +256,9 @@ Fly launch and deploy commands need to be run in the `dist` location of your app
 <summary>🐳&nbsp;&nbsp;Hint: generate executor</summary>
 
 ```shell
-npx nx generate @nx/plugin:executor fly-deploy --project=internal-plugin
+npx nx generate @nx/plugin:executor libs/internal-plugin/src/executors/fly-deploy --name=fly-deploy
 ```
+
 </details>
 <br/>
 Adjust the generated `schema.json` and `schema.d.ts` file to match the required options.
@@ -274,32 +292,39 @@ export interface FlyDeployExecutorSchema {
   flyAppName: string;
 }
 ```
+
 </details>
 
 ### 11. Add executor's logic
+
 Implement the required fly steps using `execSync` to call the `fly` cli inside your `executor.ts` file:
 
 ```typescript
+import { PromiseExecutor } from '@nx/devkit';
 import { FlyDeployExecutorSchema } from './schema';
 import { execSync } from 'child_process';
 
-export default async function runExecutor(
-  options: FlyDeployExecutorSchema
-) {
+const runExecutor: PromiseExecutor<FlyDeployExecutorSchema> = async (options) => {
   const cwd = options.distLocation;
   const results = execSync(`fly apps list`);
-  if (results.toString().includes(options.flyAppName)) {
-    execSync(`fly deploy`, { cwd });
-  } else {
-    // consult https://fly.io/docs/reference/regions/ to get best region for you
-    execSync(`fly launch --now --name=${options.flyAppName} --region=lax`, {
-      cwd,
-    });
+  try {
+    if (results.toString().includes(options.flyAppName)) {
+      execSync(`fly deploy`, { cwd, stdio: 'inherit' });
+    } else {
+      // consult https://fly.io/docs/reference/regions/ to get best region for you
+      execSync(`fly launch --now --name=${options.flyAppName} --copy-config --region=lax`, {
+        cwd,
+        stdio: 'inherit',
+      });
+    }
+    return { success: true };
+  } catch (error) {
+    console.error('Deployment failed:', error);
+    return { success: false };
   }
-  return {
-    success: true,
-  };
-}
+};
+
+export default runExecutor;
 ```
 
 Next we'll need to add a `deploy` target to our `apps/movies-api/project.json` file:
@@ -313,9 +338,7 @@ Next we'll need to add a `deploy` target to our `apps/movies-api/project.json` f
       "distLocation": "dist/apps/movies-api",
       "flyAppName": "my-unique-app-name" // don't forget to update this value
     },
-    "dependsOn": [
-      { "target": "build", "projects": "self", "params": "forward" }
-    ]
+    "dependsOn": [{ "target": "build", "projects": "self", "params": "forward" }]
   }
 }
 ```
@@ -351,6 +374,7 @@ Because of how we set up our `dependsOn` for the `deploy` target, Nx will know t
 Go to `https://<your-app-name>.fly.dev/api/games` - it should return you a list of games.
 
 ### 13. Connect frontend and backend
+
 When we serve the Store and API locally, they work great, because of the configured proxy discussed in previous labs. The Store will think the API lives at the same address.
 
 When deployed separately however, they do not yet know about each other. Let's configure a production URL for the API. Let's fix that.
