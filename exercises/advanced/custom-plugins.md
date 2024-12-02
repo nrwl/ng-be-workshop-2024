@@ -48,7 +48,7 @@ Run `npx nx list` to see the list of installed plugins. Then run `npx nx list @n
 </details>
 
 <details>
-  <summary>🐳&nbsp;&nbsp;Hint (of the hint)</summary>
+  <summary>🐳&nbsp;&nbsp;Solution</summary>
   To generate a generator into our `@nx-workshop\internal-plugin` plugin, we can run:
 
     ```bash
