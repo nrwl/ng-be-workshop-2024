@@ -41,7 +41,7 @@ Generate a new plugin called `internal-plugin` in the `libs` directory. This ste
 Use the `@nx/plugin:generator` generator to generate a new generator called `util-lib`. Inspect the files that got generated and then commit everything.
 
 <details>
-  <summary>🐳&nbsp;&nbsp;Hint</summary>
+  <summary>🐳&nbsp;&nbsp;Hint: See list of plugins</summary>
 
 Run `npx nx list` to see the list of installed plugins. Then run `npx nx list @nx/plugin` to see what generators are available.
 
