@@ -147,47 +147,47 @@ Pick a unique app name to include in the fly.toml file.
 
 👉 This will determine the address where the API will be deployed to: `https://<your-app-name>.fly.dev`
 
-```yaml
+```toml
 app = "<your-unique-app-name>"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
 [build]
-builder = "paketobuildpacks/builder:base"
-buildpacks = ["gcr.io/paketo-buildpacks/nodejs"]
+  builder = "paketobuildpacks/builder:base"
+  buildpacks = ["gcr.io/paketo-buildpacks/nodejs"]
 
 [env]
-PORT = "8080"
+  PORT = "8080"
 
 [experimental]
-cmd = ["PORT=8080 node main.js"]
+  cmd = ["PORT=8080 node main.js"]
 
 [[services]]
-http_checks = []
-internal_port = 8080
-processes = ["app"]
-protocol = "tcp"
-script_checks = []
-[services.concurrency]
-hard_limit = 25
-soft_limit = 20
-type = "connections"
+  http_checks = []
+  internal_port = 8080
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
 
 [[services.ports]]
-force_https = true
-handlers = ["http"]
-port = 80
+  force_https = true
+  handlers = ["http"]
+  port = 80
 
 [[services.ports]]
-handlers = ["tls", "http"]
-port = 443
+  handlers = ["tls", "http"]
+  port = 443
 
 [[services.tcp_checks]]
-grace_period = "1s"
-interval = "15s"
-restart_limit = 0
-timeout = "2s"
+  grace_period = "1s"
+  interval = "15s"
+  restart_limit = 0
+  timeout = "2s"
 ```
 
 Fly will launch a pre-build node Docker image (or you could provide your own) and then run the command you specify to launch the server.
@@ -234,6 +234,8 @@ We also need to include our `fly.toml` in the dist folder, Update the `build` ta
     "apps/api/src/fly.toml"
 ],
 ```
+
+Finally, make sure the `production` configuration is the default one by setting the `defaultConfiguration` property accordingly.
 
 ### 10. Build an executor
 
@@ -306,10 +308,10 @@ import { execSync } from 'child_process';
 
 const runExecutor: PromiseExecutor<FlyDeployExecutorSchema> = async (options) => {
   const cwd = options.distLocation;
-  const results = execSync(`fly apps list`);
+  const results = execSync(`flyctl apps list`);
   try {
     if (results.toString().includes(options.flyAppName)) {
-      execSync(`fly deploy`, { cwd, stdio: 'inherit' });
+      execSync(`flyctl deploy`, { cwd, stdio: 'inherit' });
     } else {
       // consult https://fly.io/docs/reference/regions/ to get best region for you
       execSync(`fly launch --now --name=${options.flyAppName} --yes --copy-config --region=lax`, {
