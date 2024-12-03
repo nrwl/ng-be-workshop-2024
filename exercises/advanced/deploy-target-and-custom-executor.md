@@ -312,7 +312,7 @@ const runExecutor: PromiseExecutor<FlyDeployExecutorSchema> = async (options) =>
       execSync(`fly deploy`, { cwd, stdio: 'inherit' });
     } else {
       // consult https://fly.io/docs/reference/regions/ to get best region for you
-      execSync(`fly launch --now --name=${options.flyAppName} --copy-config --region=lax`, {
+      execSync(`fly launch --now --name=${options.flyAppName} --yes --copy-config --region=lax`, {
         cwd,
         stdio: 'inherit',
       });
@@ -416,4 +416,4 @@ Add environment file replacement in `apps/movies-app/project.json`:
 
 Deploy both frontend and backend and verify whether the movies are shown this time.
 
-## [➡️ Next lab ➡️](./)
+## [➡️ Next lab ➡️](./setup-ci-and-connect-nx-cloud.md)

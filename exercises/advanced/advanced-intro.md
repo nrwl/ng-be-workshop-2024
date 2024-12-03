@@ -24,6 +24,12 @@ If you haven't run through the setup steps please do them now:
   npm install
   # optionally use `yarn` or `pnpm`
   ```
+- If you cloned the repo earlier, ensure it's updated with upstream:
+  ```bash
+  git remote add upstream git@github.com:nrwl/ng-be-workshop-2024.git
+  git fetch upstream main
+  git rebase upstream/main
+  ```
 
 - Serve both frontend and the backend
   ```
