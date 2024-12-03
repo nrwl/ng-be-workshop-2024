@@ -60,7 +60,7 @@
 | 📖 [Write advanced deployment targets using a custom executor](./exercises/advanced/deploy-target-and-custom-executor.md) |
 | `☕ Break` |
 | 📖 [Set up CI for your pull requests, connect to Nx Cloud, enable remote caching and the GitHub integration](./exercises/advanced/setup-ci-and-connect-nx-cloud.md) |
-| 📖 Nx Caching deep dive: Strategies for debugging cache misses, optimization strategies, and fine-tuning cache inputs and outputs |
+| 📖 [Nx Caching deep dive: Strategies for debugging cache misses, optimization strategies, and fine-tuning cache inputs and outputs](./exercises/advanced/caching-deep-dive.md) |
 | 📖 [Set up continuous deployment pipeline for affected applications](./exercises/advanced/continuous-deployment.md) |
 | `☕ Break` |
 | 📖 Configure task distribution on CI with Nx Agents, including exploring custom launch templates and dynamic agent scaling. |
