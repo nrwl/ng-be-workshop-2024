@@ -59,7 +59,7 @@ Let's add those respectively to their `project.json` files.
 ```jsonc
 "deploy": {
   // ...
-  "inputs": [{ "runtime": ["fly version" ] }]
+  "inputs": [{ "runtime": "fly version" }]
   // ...
 }
 ```
