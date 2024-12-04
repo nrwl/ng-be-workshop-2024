@@ -136,4 +136,4 @@ You need to forward the environment variables to the Nx Agents by using the `--w
 
 </details>
 
-## [➡️ Next lab ➡️](.)
+## [➡️ Next lab ➡️](./atomizer.md)
