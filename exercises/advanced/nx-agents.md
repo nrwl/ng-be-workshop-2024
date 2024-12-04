@@ -9,12 +9,11 @@
 
 ### 1. Update your CI config to enable Nx Agents
 
-- open `.github/workflows/ci.yml`
-- uncomment the corresponding line to enable Nx Agents
-- have agents stop after `e2e` tasks
-- for now, uncomment the `deploy` target (we'll come back to this later)
-- commit the changes and push them to trigger a new CI run
-- Inspect the Nx Cloud dashboard to see the Agents instantiate and process tasks
+Nx Agents allow you to distribute tasks across multiple machines with the main advantage that their configuraton is declarative and therefore adjusts to changes to your workspace.
+
+To enable Nx Agents, let's adjust the CI config. There should be already a commented line for it. Uncomment it and also make sure agents stop after `e2e` tasks.
+
+> Note, check the [Nx Agents docs](https://nx.dev/ci/features/distribute-task-execution) for any help on the syntax.
 
 <details>
 <summary>🐳&nbsp;&nbsp;Hint: uncomment agents</summary>
@@ -24,12 +23,26 @@
 ```
 
 </details>
+ 
+Also, for now, uncomment the `deploy` target. We'll come back to it later in this lab.
+
+Now commit the changes and push them to trigger a new CI run.
+
+Inspect the Nx Cloud dashboard to see the Agents instantiate and process tasks
 
 ### 2. Dynamically scale Nx Agents based on the size of the changeset
 
-- Create a new file `.nx/workflows/dynamic-changesets.yaml`. [Check the docs](https://nx.dev/ci/features/dynamic-agents) for help on the format.
-- Adjust your Nx Agent setup in your CI config to use the new launch template.
-- Test it out by triggering new CI runs with different changeset sizes.
+By default our CI setup uses a static number of Nx Agents. You can fine-tune this as you need more agents or less. You can check the "Analysis" tab in the Nx Cloud dashboard:
+
+![agents analysis](images/nx-agents-analysis.png)
+
+However, PRs can vary in size, where sometimes only 2 projects might be affected, while other times it might be 10. This would result in a lot of idle agents when many are underutilized.
+
+To fix this we can create configuration to dynamically scale the number of agents based on the size of the changeset.
+
+**Create a new file** `.nx/workflows/dynamic-changesets.yaml`. [Check the docs](https://nx.dev/ci/features/dynamic-agents) for help on the format.
+
+Next, adjust your Nx Agent setup in your CI config to use the new launch template and test it out by triggering new CI runs with different changeset sizes.
 
 <details>
 <summary>🐳&nbsp;&nbsp;Solution (changesets)</summary>
@@ -42,8 +55,6 @@ distribute-on:
 ```
 
 </details>
-
-Use the
 
 ### 3. Create a custom template to install Fly.io
 
