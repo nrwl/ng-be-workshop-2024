@@ -67,7 +67,7 @@
 | 📖 [Set up continuous deployment pipeline for affected applications](./exercises/advanced/continuous-deployment.md)                                                            |
 | `☕ Break`                                                                                                                                                                     |
 | 📖 [Configure task distribution on CI with Nx Agents, including exploring custom launch templates and dynamic agent scaling.](./exercises/advanced/nx-agents.md)               |
-| 📖 Leverage Nx Crystal plugins and Nx Atomizer to configure task splitting for improving CI distribution and speed                                                             |
+| 📖 [Leverage Nx Crystal plugins and Nx Atomizer to configure task splitting for improving CI distribution and speed](./exercises/advanced/atomizer.md)                         |
 | 📖 Explore flaky task detection                                                                                                                                                |
 | `Bonus:` Nx import, CodeOwners, and Conformance                                                                                                                                |
 
