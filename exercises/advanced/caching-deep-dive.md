@@ -1,4 +1,4 @@
-# `📖 Excercise:` Cache miss debugging, optimizations and fine tuning of inputs and outputs
+# `📖 Exercise:` Cache miss debugging, optimizations and fine tuning of inputs and outputs
 
 ## 📚&nbsp;&nbsp;**Learning outcomes**
 - Learn how to debug cache misses
