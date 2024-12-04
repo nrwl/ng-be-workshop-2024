@@ -80,4 +80,4 @@ Once you adjusted the `parallelism` property, push your changes to the remote re
 
 </details>
 
-## [➡️ Next lab ➡️](.)
+## [➡️ Next lab ➡️](./flaky-tasks.md)
