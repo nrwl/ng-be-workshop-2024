@@ -24,6 +24,11 @@
       ]
     },
     "build": {
+      "inputs": [
+        {
+          "env": "MY_SECRET"
+        }
+      ],
       "configurations": {
         "development": {},
         "production": {
