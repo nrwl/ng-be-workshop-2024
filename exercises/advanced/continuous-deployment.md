@@ -205,4 +205,4 @@ There are workarounds to the above mentioned problems:
 
 For now, it's helpful for you to know potential challenges to make the best decision when the time comes.
 
-## [➡️ Next lab ➡️](.)
+## [➡️ Next lab ➡️](./nx-agents.md)
