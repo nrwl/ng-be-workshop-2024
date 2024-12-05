@@ -50,9 +50,9 @@
 - Check the `apps` and `libs` folder
 - Run `npx nx graph` to see how architecture looks like
 
-### Discord channel
+### Discord workshop channel
 
-Join the [Discord channel](https://discord.com/channels/1143497901675401286/1313990845992538203)
+Join the [Discord channel](https://discord.gg/xr95Aap5)
 
 ---
 
@@ -73,7 +73,7 @@ Join the [Discord channel](https://discord.com/channels/1143497901675401286/1313
 | 📖 [Configure task distribution on CI with Nx Agents, including exploring custom launch templates and dynamic agent scaling.](./exercises/advanced/nx-agents.md)               |
 | 📖 [Leverage Nx Crystal plugins and Nx Atomizer to configure task splitting for improving CI distribution and speed](./exercises/advanced/atomizer.md)                         |
 | 📖 [Explore flaky task detection](./exercises/advanced/flaky-tasks.md)                                                                                                         |
-| `Bonus:` [Infer Fly.io deploy target](./exercises/advanced/infer-target.md)                                                                                                                                |
+| `Bonus:` [Infer Fly.io deploy target](./exercises/advanced/infer-target.md)                                                                                                    |
 | `Bonus:` [Nx import, CodeOwners, and Conformance](./exercises/advanced/bonus.md)                                                                                               |
 
 ---
