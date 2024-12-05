@@ -3,12 +3,17 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/movies-api/src",
   "projectType": "application",
-  "tags": ["type:api", "scope:movies"],
+  "tags": [
+    "type:api",
+    "scope:api"
+  ],
   "targets": {
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "options": {
         "buildTarget": "movies-api:build",
         "runBuildTargetDependencies": false
@@ -24,7 +29,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/movies-api/jest.config.ts"
       }
