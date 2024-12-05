@@ -12,7 +12,29 @@
         "index": 0
       },
       "x-prompt": "What name would you like to use?"
+    },
+    "directory": {
+      "type": "string",
+      "description": "Provide the directory",
+      "x-prompt": {
+        "message": "What directory would you like to use?",
+        "type": "list",
+        "items": [
+          {
+            "value": "movies",
+            "label": "Movies"
+          },
+          {
+            "value": "api",
+            "label": "API"
+          },
+          {
+            "value": "shared",
+            "label": "Shared"
+          }
+        ]
+      }
     }
   },
-  "required": ["name"]
+  "required": ["name", "directory"]
 }
