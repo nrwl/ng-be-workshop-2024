@@ -28,12 +28,32 @@ export async function updateScopeSchemaGenerator(
 
       json.properties.directory.enum = allScopes;
 
-      console.log(json.properties.directory['x-prompt'].items, json.properties.directory.enum);
+      console.log(
+        json.properties.directory['x-prompt'].items,
+        json.properties.directory.enum
+      );
       return json;
     }
   );
 
+  const dTsPath= 'libs/internal-plugin/src/generators/util-lib/schema.d.ts';
+  const dTsContent = tree.read(dTsPath);
+  const replacedDtsContent = replaceScopes(dTsContent.toString(), allScopes);
+  tree.write(dTsPath, replacedDtsContent);
+
   await formatFiles(tree);
+}
+
+function replaceScopes(content: string, scopes: string[]): string {
+  const joinScopes = scopes.map((s) => `'${s}'`).join(' | ');
+  const PATTERN = /interface UtilLibGeneratorSchema \{\n.*\n.*\n\}/gm;
+  return content.replace(
+    PATTERN,
+    `interface UtilLibGeneratorSchema {
+  name: string;
+  directory: ${joinScopes};
+}`
+  );
 }
 
 function getScopes(projectMap: Map<string, ProjectConfiguration>) {
