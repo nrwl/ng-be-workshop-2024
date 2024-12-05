@@ -34,7 +34,7 @@ Inspect the Nx Cloud dashboard to see the Agents instantiate and process tasks
 
 By default our CI setup uses a static number of Nx Agents. You can fine-tune this as you need more agents or less. You can check the "Analysis" tab in the Nx Cloud dashboard:
 
-![agents analysis](images/nx-agents-analysis.png)
+![agents analysis](../images/nx-agents-analysis.png)
 
 However, PRs can vary in size, where sometimes only 2 projects might be affected, while other times it might be 10. This would result in a lot of idle agents when many are underutilized.
 
@@ -130,7 +130,7 @@ If you're using dynamic scaling, you'll need to update the Nx agent image that's
 
 Inspect the Nx Cloud dashboard. You should see your new launch template being used.
 
-![custom-launch-template](images/nx-cloud-custom-launch-template.png)
+![custom-launch-template](../images/nx-cloud-custom-launch-template.png)
 
 > ⚠️&nbsp;&nbsp;Your Fly.io deployment might still not work. Check the logs on Nx CLoud to see why.
 
