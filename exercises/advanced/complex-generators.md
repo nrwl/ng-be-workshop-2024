@@ -144,7 +144,7 @@ their scope files.
 
 </details>
 
-### 6. `✨ BONUS` Create a unit test to verify functionality
+### 6. `✨ BONUS` Create a unit test to verify functionality TODO
 
 Create a test to automate verification of this generator in `libs/internal-plugin/src/generators/update-scope-schema/generator.spec.ts`. This will be particularly difficult, as you'll need to create a project with the actual source code of your `util-lib` generator as part of the setup for this test.
 

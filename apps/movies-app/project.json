@@ -4,17 +4,32 @@
   "projectType": "application",
   "prefix": "movies",
   "sourceRoot": "apps/movies-app/src",
-  "implicitDependencies": ["shared-ui-theme"],
-  "tags": ["scope:movies", "type:app"],
+  "implicitDependencies": [
+    "shared-ui-theme"
+  ],
+  "tags": [
+    "scope:movies",
+    "type:app"
+  ],
   "targets": {
+    "deploy": {
+      "command": "surge dist/apps/movies-app/browser ${SURGE_DOMAIN} --token ${SURGE_TOKEN}",
+      "dependsOn": [
+        "build"
+      ]
+    },
     "build": {
       "executor": "@nx/angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/movies-app",
         "index": "apps/movies-app/src/index.html",
         "browser": "apps/movies-app/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/movies-app/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -22,9 +37,13 @@
           "apps/movies-app/src/assets"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": ["libs/shared/ui-theme/src/styles"]
+          "includePaths": [
+            "libs/shared/ui-theme/src/styles"
+          ]
         },
-        "styles": ["apps/movies-app/src/styles.scss"],
+        "styles": [
+          "apps/movies-app/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -53,7 +72,9 @@
     },
     "send-email-on-deploy": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "options": {
         "command": "echo 'Deployed to production! Sending email...'",
         "cwd": "dist/apps/movies-app"
@@ -82,11 +103,15 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "outputs": [
+        "{options.outputFile}"
+      ]
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/movies-app/jest.config.ts"
       }
