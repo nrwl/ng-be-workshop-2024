@@ -7,6 +7,7 @@ export const routes: Routes = [
       import('@nx-workshop/movies/feature-movie-list').then(
         m => m.MovieListPageComponent
       ),
+    title: 'Movies List' // <-- Add this
   },
   {
     path: 'list/genre/:id',
