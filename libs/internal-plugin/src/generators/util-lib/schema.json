@@ -16,29 +16,30 @@
     "directory": {
       "type": "string",
       "description": "Provide the directory",
-      "enum": [
-        "movies",
-        "api",
-        "shared"
-      ],
+      "enum": ["movies", "api", "shared"],
       "x-prompt": {
         "message": "What directory would you like to use?",
         "type": "list",
         "items": [
           {
-            "value": "movies",
-            "label": "movies"
-          },
-          {
             "value": "api",
             "label": "api"
           },
           {
+            "value": "movies",
+            "label": "movies"
+          },
+          {
             "value": "shared",
             "label": "shared"
+          },
+          {
+            "value": "video-games",
+            "label": "video-games"
           }
         ]
-      }
+      },
+      "enums": ["api", "movies", "shared", "video-games"]
     }
   }
 }

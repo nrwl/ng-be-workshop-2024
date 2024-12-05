@@ -2,16 +2,26 @@
   "name": "movies-api-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "implicitDependencies": ["movies-api"],
+  "implicitDependencies": [
+    "movies-api"
+  ],
+  "tags": [
+    "scope:api",
+    "type:app"
+  ],
   "targets": {
     "e2e": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{e2eProjectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/movies-api-e2e/jest.config.ts",
         "passWithNoTests": true
       },
-      "dependsOn": ["movies-api:build"]
+      "dependsOn": [
+        "movies-api:build"
+      ]
     }
   }
 }
