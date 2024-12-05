@@ -14,7 +14,7 @@ as part of our plugin `workspace-tools` that we've created before.
 
 Use the `@nx/plugin:executor` generator to generate a new `deploy` executor.
 
-Use the `--director=tools/workspace/src/executors/deploy` argument to specify it as a target for the existing plugin.
+Use the `--directory=tools/workspace/src/executors/deploy` argument to specify it as a target for the existing plugin.
 
 <details>
   <summary>generate the deploy executor</summary>
