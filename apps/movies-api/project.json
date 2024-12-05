@@ -8,6 +8,23 @@
     "scope:api"
   ],
   "targets": {
+    "build": {
+      "configurations": {
+        "development": {},
+        "production": {},
+        "options": {
+          "externalDependencies": [
+            "@nestjs/microservices",
+            "@nestjs/microservices/microservices-module",
+            "@nestjs/websockets/socket-module",
+            "class-transformer",
+            "class-validator",
+            "cache-manager",
+            "cache-manager/package.json"
+          ]
+        }
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
