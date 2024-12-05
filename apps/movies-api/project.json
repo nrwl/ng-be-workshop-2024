@@ -5,6 +5,27 @@
   "projectType": "application",
   "tags": ["type:api", "scope:api"],
   "targets": {
+    "build": {
+      "configurations": {
+        "production": {
+          "externalDependencies": [
+            "@nestjs/microservices",
+            "@nestjs/microservices/microservices-module",
+            "@nestjs/websockets/socket-module",
+            "class-transformer",
+            "class-validator",
+            "cache-manager",
+            "cache-manager/package.json"
+          ],
+          "assets": [
+              "apps/movies-api/src/assets",
+              "apps/movies-api/src/fly.toml",
+              "apps/movies-api/src/Dockerfile",
+              "apps/movies-api/src/.dockerignore"
+          ]
+        }
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
@@ -21,6 +42,17 @@
           "buildTarget": "movies-api:build:production"
         }
       }
+    },
+    "deploy": {
+      "executor": "@nx-workshop/internal-plugin:fly-deploy",
+      "outputs": [],
+      "options": {
+        "distLocation": "dist/apps/movies-api",
+        "flyAppName": "jurgen-workshop-2024"
+      },
+      "dependsOn": [
+        { "target": "build", "projects": "self", "params": "forward" }
+      ]
     },
     "test": {
       "executor": "@nx/jest:jest",

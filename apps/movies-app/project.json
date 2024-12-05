@@ -4,8 +4,8 @@
   "projectType": "application",
   "prefix": "movies",
   "sourceRoot": "apps/movies-app/src",
-  "implicitDependencies": ["shared-ui-theme"],
   "tags": ["scope:movies", "type:app"],
+  "implicitDependencies": ["shared-ui-theme"],
   "targets": {
     "build": {
       "executor": "@nx/angular:application",
@@ -41,7 +41,13 @@
               "maximumError": "20kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/movies-app/src/environments/environment.ts",
+              "with": "apps/movies-app/src/environments/environment.prod.ts"
+            }
+          ]
         },
         "development": {
           "optimization": false,
@@ -97,6 +103,15 @@
         "buildTarget": "movies-app:build",
         "staticFilePath": "dist/apps/movies-app/browser"
       }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "npx surge dist/apps/movies-app/browser https://ng-be-workshop124.surge.sh --token d4cc7aca925438fd56427aefd04b6278",
+        "envFile": "apps/movies-app/local.env"
+      },
+      "dependsOn": ["build"]
     }
   }
 }
