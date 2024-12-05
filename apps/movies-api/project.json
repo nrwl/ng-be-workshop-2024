@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/movies-api/src",
   "projectType": "application",
-  "tags": ["type:api", "scope:movies"],
+  "tags": ["type:api", "scope:api"],
   "targets": {
     "serve": {
       "executor": "@nx/js:node",

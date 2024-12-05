@@ -12,6 +12,33 @@
         "index": 0
       },
       "x-prompt": "What name would you like to use?"
+    },
+    "directory": {
+      "type": "string",
+      "enum": ["api", "movies", "songs", "shared"],
+      "description": "base directory",
+      "x-prompt": {
+        "message": "What directory would you like to use?",
+        "type": "list",
+        "items": [
+          {
+            "value": "api",
+            "label": "api"
+          },
+          {
+            "value": "movies",
+            "label": "movies"
+          },
+          {
+            "value": "songs",
+            "label": "songs"
+          },
+          {
+            "value": "shared",
+            "label": "shared"
+          }
+        ]
+      }
     }
   },
   "required": ["name"]
