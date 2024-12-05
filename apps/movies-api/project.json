@@ -11,8 +11,13 @@
     "build": {
       "configurations": {
         "development": {},
-        "production": {},
-        "options": {
+        "production": {
+          "assets": [
+            "apps/movies-api/src/assets",
+            "apps/movies-api/src/fly.toml",
+            "apps/movies-api/src/Dockerfile",
+            "apps/movies-api/src/.dockerignore"
+          ],
           "externalDependencies": [
             "@nestjs/microservices",
             "@nestjs/microservices/microservices-module",
@@ -23,7 +28,8 @@
             "cache-manager/package.json"
           ]
         }
-      }
+      },
+      "defaultConfiguration": "production"
     },
     "serve": {
       "executor": "@nx/js:node",
