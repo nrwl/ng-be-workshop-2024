@@ -8,6 +8,21 @@
     "scope:api"
   ],
   "targets": {
+    "deploy": {
+      "executor": "@nx-workshop/internal-plugin:fly-deploy",
+      "outputs": [],
+      "options": {
+        "distLocation": "dist/apps/movies-api",
+        "flyAppName": "nx-workshop-svb"
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self",
+          "params": "forward"
+        }
+      ]
+    },
     "build": {
       "configurations": {
         "development": {},

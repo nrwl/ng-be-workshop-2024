@@ -1,1 +1,4 @@
-export interface FlyDeployExecutorSchema {} // eslint-disable-line
+export interface FlyDeployExecutorSchema {
+  distLocation: string;
+  flyAppName: string;
+}
