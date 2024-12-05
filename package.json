@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve"
+    "start": "nx serve",
+    "postinstall": "husky install",
+    "pre-commit": "npx nx g @nx-workshop/internal-plugin:update-scope-schema"
   },
   "private": true,
   "dependencies": {
