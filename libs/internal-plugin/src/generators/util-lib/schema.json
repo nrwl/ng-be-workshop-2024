@@ -21,19 +21,20 @@
         "type": "list",
         "items": [
           {
-            "value": "movies",
-            "label": "Movies"
+            "value": "api",
+            "label": "api"
           },
           {
-            "value": "api",
-            "label": "API"
+            "value": "movies",
+            "label": "movies"
           },
           {
             "value": "shared",
-            "label": "Shared"
+            "label": "shared"
           }
         ]
-      }
+      },
+      "enums": ["api", "movies", "shared"]
     }
   },
   "required": ["name", "directory"]
