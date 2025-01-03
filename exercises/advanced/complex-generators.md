@@ -54,7 +54,7 @@ function getScopes(projectMap: Map<string, ProjectConfiguration>) {
   const allScopes: string[] = Array.from(projectMap.values())
     .map((project) => {
       if (project.tags) {
-        const scopes = project.tags.filter((tag: string) => tag.startsWith('scope:'));
+        const scopes = project.tags?.filter((tag: string) => tag.startsWith('scope:')) ?? [];
         return scopes;
       }
       return [];
@@ -141,7 +141,7 @@ function getScopes(projectMap: Map<string, ProjectConfiguration>) {
   const projects: any[] = Array.from(projectMap.values());
   const allScopes: string[] = projects
     .map((project) =>
-      project.tags.filter((tag: string) => tag.startsWith('scope:'))
+      project.tags?.filter((tag: string) => tag.startsWith('scope:')) ?? []
     )
     .reduce((acc, tags) => [...acc, ...tags], [])
     .map((scope: string) => scope.slice(6));
