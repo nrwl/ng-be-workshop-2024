@@ -234,7 +234,7 @@ Create a test to automate verification of this generator in `libs/internal-plugi
 ```typescript
 import { readJson, Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { libraryGenerator } from '@nx/js/generators';
+import { libraryGenerator } from '@nx/js';
 import { generatorGenerator, pluginGenerator } from '@nx/plugin/generators';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -248,8 +248,16 @@ describe('update-scope-schema generator', () => {
   beforeEach(async () => {
     appTree = createTreeWithEmptyWorkspace();
     await addUtilLibProject(appTree);
-    await libraryGenerator(appTree, { name: 'foo', tags: 'scope:foo' });
-    await libraryGenerator(appTree, { name: 'bar', tags: 'scope:bar' });
+    await libraryGenerator(appTree, {
+      name: 'foo',
+      tags: 'scope:foo',
+      directory: 'foo',
+    });
+    await libraryGenerator(appTree, {
+      name: 'bar',
+      tags: 'scope:bar',
+      directory: 'bar',
+    });
   });
 
   it('should adjust the util-lib generator based on existing projects', async () => {
@@ -272,7 +280,7 @@ describe('update-scope-schema generator', () => {
       'libs/internal-plugin/src/generators/util-lib/schema.d.ts',
       'utf-8'
     );
-    expect(schemaInterface).toContain(`export interface Schema {
+    expect(schemaInterface).toContain(`export interface UtilLibGeneratorSchema {
   name: string;
   directory: 'foo' | 'bar';
 }`);
@@ -282,18 +290,17 @@ describe('update-scope-schema generator', () => {
 async function addUtilLibProject(tree: Tree) {
   await pluginGenerator(tree, {
     name: 'internal-plugin',
-    directory: 'libs/internal-plugin'
+    directory: 'libs/internal-plugin',
     skipTsConfig: false,
     unitTestRunner: 'jest',
     linter: Linter.EsLint,
     compiler: 'tsc',
     skipFormat: false,
     skipLintChecks: false,
-    minimal: true,
   });
   await generatorGenerator(tree, {
     name: 'util-lib',
-    directory: 'libs/internal-plugin/src/generators/util-lib',
+    path: 'libs/internal-plugin/src/generators/util-lib',
     unitTestRunner: 'jest',
   });
   const filesToCopy = [
@@ -308,6 +315,7 @@ async function addUtilLibProject(tree: Tree) {
     );
   }
 }
+
 ```
 
 </details>
