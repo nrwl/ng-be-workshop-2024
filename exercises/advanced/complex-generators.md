@@ -220,6 +220,8 @@ their scope files.
 }
 ```
 
+You may need to install husky with `npm install -D husky`.
+
 </details>
 
 ### 6. `✨ BONUS` Create a unit test to verify functionality
