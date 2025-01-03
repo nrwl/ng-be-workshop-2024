@@ -136,7 +136,7 @@ locally generated files again.
 Let's add some functionality to the lib you just created:
 
 - Generate a new lib called `util-notifications` in the `api` directory using our new generator
-- In `libs/api/util-notifications/src/lib/api-util-notifications.ts`
+- In `libs/api/util-notifications/src/lib/util-notifications.ts`
 - Add:
   ```typescript
   export function sendNotification(clientId: string) {
