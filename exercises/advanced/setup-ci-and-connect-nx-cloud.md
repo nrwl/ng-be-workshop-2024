@@ -139,6 +139,6 @@ git pull
 
 Now run any test, lint or build command. Notice how it's being retreived from the remote cache.
 
-![nx-cloud-cache](images/nx-cloud-cache.png)
+![nx-cloud-cache](../images/nx-cloud-cache.png)
 
 ## [➡️ Next lab ➡️](./caching-deep-dive.md)

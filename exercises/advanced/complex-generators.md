@@ -130,7 +130,7 @@ import {
   getProjects,
 } from '@nx/devkit';
 
-export default async function (tree: Tree) {
+export async function generator(tree: Tree) {
   const scopes = getScopes(getProjects(tree));
   updateSchemaJson(tree, scopes);
   updateSchemaInterface(tree, scopes);
@@ -242,7 +242,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { Linter } from '@nx/eslint';
-import generator from './generator';
+import { generator } from './generator';
 
 describe('update-scope-schema generator', () => {
   let appTree: Tree;
