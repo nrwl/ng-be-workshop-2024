@@ -18,13 +18,13 @@ The hash signature is based on following variables:
 
 First parameter is obvious. If you run `nx build movies-app`, Nx will store the command signature in the hash details and use it to calculate the final hash. Every time the command changes ever so slightly, for example when running it with `--prod` or `--verbose`, will change the final hash stamp.
 
-Each tasks is defined by list of inputs that define the context upon which we run the task command. Inputs can be defined in `nx.json` as `targetDefaults`, in `project.json` and `package.json` target's configuration or any combination of the above. The best way to get the full list of inputs is by using `Nx Console` IDE extension or by running `nx graph`.
+Each task is defined by list of inputs that define the context upon which we run the task command. Inputs can be defined in `nx.json` as `targetDefaults`, in `project.json` and `package.json` target's configuration or any combination of the above. The best way to get the full list of inputs is by using `Nx Console` IDE extension or by running `nx graph`. To see a list of inputs for targets of a specific project such as `movies-api`, you can run `nx show project movies-api`.
 
 ![Lint task inputs](../assets/lint-inputs.png)
 
 Some files are explicitly specified, while others are represented by `namedInputs`. Named inputs are variables that encapsulate common file groups. The two typical ones are:
 - `default` - includes all the files in the project
-- `production` - exludes all files that are not production relevant like `spec.ts` files and lint and test configurations.
+- `production` - excludes all files that are not production relevant like `spec.ts` files and lint and test configurations.
 
 Any change to files included in the inputs will result in the new hash signature.
 
@@ -34,12 +34,15 @@ Try running the `build` for `movies-api`. Running the build for the second time 
 
 Besides the file contents inputs, our tasks can also depend on runtime and environment variables and even outputs of their dependencies. As we will see in the next lab, this will become crucial to limit the cases when `deploy` target should run.
 
-Let's try playing with those inputs. Add to build target in `movies-api` `project.json` following runtime input:
+Let's try playing with those inputs. Add the following runtime input to the `production` named input in `nx.json`:
 
 ```jsonc
-"build": {
+"namedInputs": {
   // ...
-  "inputs": [{ "runtime": "date" }]
+  "production" [
+    // ...
+    { "runtime": "date" }
+  ]
   // ...
 }
 ```
@@ -49,9 +52,12 @@ Try running `nx build movies-api` several times in a row. Notice how we are no l
 Replace that input now with a more controlled `environment` input:
 
 ```jsonc
-"build": {
+"namedInputs": {
   // ...
-  "inputs": [{ "env": "MY_SECRET" }]
+  "production" [
+    // ...
+    { "env": "MY_SECRET" }
+  ]
   // ...
 }
 ```
@@ -68,7 +74,7 @@ Whenever our task depends on environment where it's being invoked or upon some e
 
 Sometimes we get cache miss despite expecting a cache hit. Investigating why certain task was not retrieved from the cache can seem a difficult task. Let's learn some steps that will help us investigate cache misses.
 
-By prefixing your command with `NX_NATIVE_LOGGING=trace NX_DAEMON=false ...` your task will be printed out with the full Rust trace which will include all the details about hashing. Look for the following section - `hashes=NapiDashMap({ ... })`. It containst the large object with HashDetails of all the tasks involved in your tast run.
+By prefixing your command with `NX_NATIVE_LOGGING=trace NX_DAEMON=false ...` your task will be printed out with the full Rust trace which will include all the details about hashing. Look for the following section - `hashes=NapiDashMap({ ... })`. It contains the large object with HashDetails of all the tasks involved in your test run.
 
 Finally, in case of cache hit, you will see the block starting with:
 ```bash
@@ -102,11 +108,6 @@ Each executor is represented by the NPM package that contains it, as well as its
 As you will learn in the next lab, there is one input configuration that can limit this.
 
 For the time being, it's important to be aware of this behavior.
-To test it, try to install some package that is not used by any task e.g. `npm i -D jquery`.
-
-If you run your `lint` now the results should still be retrieved from the cache. But if you run `deploy` notice how the command is running in full.
-
-> ⚠️&nbsp;&nbsp;Don't forget to revert the changes to package.json and the lock file. We don't need jQuery in there 😃
 
 ### 5. Final thoughts
 
