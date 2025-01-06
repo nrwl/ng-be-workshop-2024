@@ -108,7 +108,7 @@ Inspect the Nx Cloud dashboard. You should see your new launch template being us
 
 ![custom-launch-template](../images/nx-cloud-custom-launch-template.png)
 
-If needed, you can forward environment variables to the Nx Agents by using the `--with-env-vars` flag:
+If needed, you can forward environment variables to the Nx Agents by using the `--with-env-vars` flag on the `start-ci-run` command:
 
 ```bash
  --with-env-vars="MY_SECRET_TOKEN,MY_OTHER_TOKEN"
