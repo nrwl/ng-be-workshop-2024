@@ -25,11 +25,11 @@ Make a couple of arbitrary changes and push them to trigger to a new CI run.
 
 If you succeed you should see a note at the top of the dashboard indicating the presence of some flaky tasks.
 
-![flaky tasks](images/flaky-tasks.png)
+![flaky tasks](../images/flaky-tasks.png)
 
 Also if you open the the project containing the flaky task you should see how it got retried:
 
-![flaky task retry](images/flaky-task-retry.png)
+![flaky task retry](../images/flaky-task-retry.png)
 
 ## That's it! 🎉
 
