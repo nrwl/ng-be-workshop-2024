@@ -33,4 +33,4 @@ Also if you open the the project containing the flaky task you should see how it
 
 ## That's it! 🎉
 
-You made it all the way through! Are you up for some [✨ bonus tasks ✨](./infer-target.md)?
+You made it all the way through! Are you up for some [✨ bonus tasks ✨](./bonus.md)?

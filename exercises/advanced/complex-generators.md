@@ -328,4 +328,4 @@ You learned how to generate and test complex generators. In the next step we wil
 
 ⚠️&nbsp;&nbsp;Don't forget to commit everything before you move on.
 
-## [➡️ Next lab ➡️](./deploy-target-and-custom-executor.md)
+## [➡️ Next lab ➡️](./setup-ci-and-connect-nx-cloud.md)

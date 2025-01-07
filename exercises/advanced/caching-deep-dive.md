@@ -113,4 +113,4 @@ For the time being, it's important to be aware of this behavior.
 
 In this lab we learned how to optimize our task inputs to get the best caching results. In the next lab we will use some of those learnings to implement the continuous deployment in the most optimal way.
 
-## [➡️ Next lab ➡️](./continuous-deployment.md)
+## [➡️ Next lab ➡️](./nx-agents.md)

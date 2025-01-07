@@ -23,9 +23,6 @@
 - Optionally [Yarn](https://yarnpkg.com/) or [Pnpm](https://pnpm.io/)
 - [GitHub](https://github.com/) account
 - IDE of your choice
-- A [Fly.io](https://fly.io/) account with CLI installed
-  - Check with: `fly help`
-  - `Note` No need to set up the Credit card, we will use free tier
 
 ### Getting the repo
 
@@ -64,16 +61,13 @@ Join the [Discord channel](https://discord.gg/xr95Aap5)
 | 📖 [Automate your workspace with local plugins and custom generators](./exercises/advanced/custom-plugins.md)                                                                  |
 | `☕ Break`                                                                                                                                                                     |
 | 📖 [Learn how to write and test your complex generators](./exercises/advanced/complex-generators.md)                                                                           |
-| 📖 [Write advanced deployment targets using a custom executor](./exercises/advanced/deploy-target-and-custom-executor.md)                                                      |
-| `☕ Break`                                                                                                                                                                     |
 | 📖 [Set up CI for your pull requests, connect to Nx Cloud, enable remote caching and the GitHub integration](./exercises/advanced/setup-ci-and-connect-nx-cloud.md)            |
-| 📖 [Nx Caching deep dive: Strategies for debugging cache misses, optimization strategies, and fine-tuning cache inputs and outputs](./exercises/advanced/caching-deep-dive.md) |
-| 📖 [Set up continuous deployment pipeline for affected applications](./exercises/advanced/continuous-deployment.md)                                                            |
 | `☕ Break`                                                                                                                                                                     |
+| 📖 [Nx Caching deep dive: Strategies for debugging cache misses, optimization strategies, and fine-tuning cache inputs and outputs](./exercises/advanced/caching-deep-dive.md) |
 | 📖 [Configure task distribution on CI with Nx Agents, including exploring custom launch templates and dynamic agent scaling.](./exercises/advanced/nx-agents.md)               |
+| `☕ Break`                                                                                                                                                                     |
 | 📖 [Leverage Nx Crystal plugins and Nx Atomizer to configure task splitting for improving CI distribution and speed](./exercises/advanced/atomizer.md)                         |
 | 📖 [Explore flaky task detection](./exercises/advanced/flaky-tasks.md)                                                                                                         |
-| `Bonus:` [Infer Fly.io deploy target](./exercises/advanced/infer-target.md)                                                                                                    |
 | `Bonus:` [Nx import, CodeOwners, and Conformance](./exercises/advanced/bonus.md)                                                                                               |
 
 ---

@@ -7,24 +7,26 @@
 
 ## 🏋️‍♀️&nbsp;&nbsp;Steps:
 
-### 1. Use Nx import to import an existing Angular project
+### 1. Use Nx import to import an existing Vite project
 
-As a first step, create a new Angular project in some folder outside of the current workspace. Note use Angular 18 for now as Nx support is for v19 is about to drop but might not be out yet by the time of this workshop.
+As a first step, create a new project in some folder outside of the current workspace. This project does not need to use the same technology stack as what is in the existing monorepo. For this example, you could use [Vite to create a React project](https://vite.dev/guide/#scaffolding-your-first-vite-project).
 
 ```bash
-npx @angular/cli@18 new my-app
+npx create vite@latest my-vite-app --template react
 ```
 
 Then run the following command to import it into the current workspace:
 
 ```bash
-npx nx import <path-to-ng-project>
+npx nx import <path-to-vite-project>
 ```
 
-Confirm the installation of the `@nx/angular` and `@nx/jest` plugin.
-Once installed, try to serve the app. Nx is directly running the script of the `package.json` from the imported Angular app.
+Confirm the installation of the `@nx/jest` plugin. The `@nx/angular` plugin will not be needed for the Vite project.
+Once installed, try to serve the app. Nx is directly running the script of the `package.json` from the imported app.
 
-You can even completely remove all `package.json > scripts` from the imported Angular project as the `@nx/angular` Crystal plugin will automatically detect the `angular.json` and know how to run the various targets.
+You can even completely remove all `package.json > scripts` from the imported Vite project as the `@nx/vite` Crystal plugin will automatically detect the `vite.config.ts` and know how to run the various targets.
+
+Now, Nx is aware of the Vite project. It will appear in the `nx graph`, and commands that run tasks like `nx run-many -t build` will automatically run that target for the Vite project as well as the other projects in the workspace.
 
 ### 2. Activate Powerpack
 
