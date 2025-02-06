@@ -195,7 +195,7 @@ Let's copy all three files to our `apps/movies-api/src`.
 While still in the dist folder run following command:
 
 ```bash
-fly tokens create deploy -x 999999h
+flyctl tokens create deploy -x 999999h
 ```
 
 This will generate your unique auth token. Copy the output, including the FlyV1 and space at the beginning. Let's store the token in the `apps/movies-api/.local.env` environment file:
@@ -210,7 +210,7 @@ As we want those three files above to be copied rather than re-generated every t
 "assets": [
     "apps/movies-api/src/assets",
     "apps/movies-api/src/fly.toml",
-    "apps/movies-api/src/Dcokerfile",
+    "apps/movies-api/src/Dockerfile",
     "apps/movies-api/src/.dockerignore",
 ],
 ```
