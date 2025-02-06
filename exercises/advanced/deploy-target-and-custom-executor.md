@@ -230,9 +230,9 @@ The executor should have options for:
 
 When running, your executor should perform the following tasks, using the `fly` CLI:
 
-- list the current fly apps: `fly apps list`
-- if the app doesn't exist, launch it: `fly launch --now --name=<the name of your Fly App> --region=lax --copy-config --yes`
-- if the app exists, deploy it again: `fly deploy`
+- list the current fly apps: `flyctl apps list`
+- if the app doesn't exist, launch it: `flyctl launch --now --name=<the name of your Fly App> --region=lax --copy-config --yes`
+- if the app exists, deploy it again: `flyctl deploy`
 
 Fly launch and deploy commands need to be run in the `dist` location of your app.
 
