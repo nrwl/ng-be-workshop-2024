@@ -54,7 +54,7 @@ function getScopes(projectMap: Map<string, ProjectConfiguration>) {
   const allScopes: string[] = Array.from(projectMap.values())
     .map((project) => {
       if (project.tags) {
-        const scopes = project.tags.filter((tag: string) => tag.startsWith('scope:'));
+        const scopes = project.tags?.filter((tag: string) => tag.startsWith('scope:')) ?? [];
         return scopes;
       }
       return [];
@@ -130,7 +130,7 @@ import {
   getProjects,
 } from '@nx/devkit';
 
-export default async function (tree: Tree) {
+export async function generator(tree: Tree) {
   const scopes = getScopes(getProjects(tree));
   updateSchemaJson(tree, scopes);
   updateSchemaInterface(tree, scopes);
@@ -141,7 +141,7 @@ function getScopes(projectMap: Map<string, ProjectConfiguration>) {
   const projects: any[] = Array.from(projectMap.values());
   const allScopes: string[] = projects
     .map((project) =>
-      project.tags.filter((tag: string) => tag.startsWith('scope:'))
+      project.tags?.filter((tag: string) => tag.startsWith('scope:')) ?? []
     )
     .reduce((acc, tags) => [...acc, ...tags], [])
     .map((scope: string) => scope.slice(6));
@@ -220,6 +220,8 @@ their scope files.
 }
 ```
 
+You may need to install husky with `npm install -D husky`.
+
 </details>
 
 ### 6. `✨ BONUS` Create a unit test to verify functionality
@@ -234,13 +236,13 @@ Create a test to automate verification of this generator in `libs/internal-plugi
 ```typescript
 import { readJson, Tree } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { libraryGenerator } from '@nx/js/generators';
+import { libraryGenerator } from '@nx/js';
 import { generatorGenerator, pluginGenerator } from '@nx/plugin/generators';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { Linter } from '@nx/eslint';
-import generator from './generator';
+import { generator } from './generator';
 
 describe('update-scope-schema generator', () => {
   let appTree: Tree;
@@ -248,8 +250,16 @@ describe('update-scope-schema generator', () => {
   beforeEach(async () => {
     appTree = createTreeWithEmptyWorkspace();
     await addUtilLibProject(appTree);
-    await libraryGenerator(appTree, { name: 'foo', tags: 'scope:foo' });
-    await libraryGenerator(appTree, { name: 'bar', tags: 'scope:bar' });
+    await libraryGenerator(appTree, {
+      name: 'foo',
+      tags: 'scope:foo',
+      directory: 'foo',
+    });
+    await libraryGenerator(appTree, {
+      name: 'bar',
+      tags: 'scope:bar',
+      directory: 'bar',
+    });
   });
 
   it('should adjust the util-lib generator based on existing projects', async () => {
@@ -272,7 +282,7 @@ describe('update-scope-schema generator', () => {
       'libs/internal-plugin/src/generators/util-lib/schema.d.ts',
       'utf-8'
     );
-    expect(schemaInterface).toContain(`export interface Schema {
+    expect(schemaInterface).toContain(`export interface UtilLibGeneratorSchema {
   name: string;
   directory: 'foo' | 'bar';
 }`);
@@ -282,18 +292,17 @@ describe('update-scope-schema generator', () => {
 async function addUtilLibProject(tree: Tree) {
   await pluginGenerator(tree, {
     name: 'internal-plugin',
-    directory: 'libs/internal-plugin'
+    directory: 'libs/internal-plugin',
     skipTsConfig: false,
     unitTestRunner: 'jest',
     linter: Linter.EsLint,
     compiler: 'tsc',
     skipFormat: false,
     skipLintChecks: false,
-    minimal: true,
   });
   await generatorGenerator(tree, {
     name: 'util-lib',
-    directory: 'libs/internal-plugin/src/generators/util-lib',
+    path: 'libs/internal-plugin/src/generators/util-lib',
     unitTestRunner: 'jest',
   });
   const filesToCopy = [
@@ -308,6 +317,7 @@ async function addUtilLibProject(tree: Tree) {
     );
   }
 }
+
 ```
 
 </details>
@@ -318,4 +328,4 @@ You learned how to generate and test complex generators. In the next step we wil
 
 ⚠️&nbsp;&nbsp;Don't forget to commit everything before you move on.
 
-## [➡️ Next lab ➡️](./deploy-target-and-custom-executor.md)
+## [➡️ Next lab ➡️](./setup-ci-and-connect-nx-cloud.md)

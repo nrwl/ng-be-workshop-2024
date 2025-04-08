@@ -67,7 +67,7 @@ Try to run your generator to see what changes are being made (you can append `--
 
 ### 5. Extend other generators
 
-We can call other generators inside of our custom generator. Import the `@nx/js:library` generator and call it inside of the default exported function of `libs/internal-plugin/src/generators/util-lib/generator.ts`
+We can call other generators inside of our custom generator. Add `@nx/js` as a dependency of `internal-plugin`. Then, import the `@nx/js:library` generator and call it inside of the default exported function of `libs/internal-plugin/src/generators/util-lib/generator.ts`
 
 <details>
 <summary>🐳&nbsp;&nbsp;Hint</summary>
@@ -107,6 +107,8 @@ schema it should prompt the user to select from the 3 different values (similar 
 asked about which bundler to use when creating libs). The generator should generate the lib in the directory you pass to it:
 
 - `movies`-> `libs/movies/{lib name}`
+
+The generator should also add the directory as a prefix to the lib name.
 
 <details>
 <summary>🐳&nbsp;&nbsp;Hint</summary>

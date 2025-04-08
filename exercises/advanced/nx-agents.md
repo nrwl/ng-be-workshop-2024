@@ -23,8 +23,6 @@ To enable Nx Agents, let's adjust the CI config. There should be already a comme
 ```
 
 </details>
- 
-Also, for now, uncomment the `deploy` target. We'll come back to it later in this lab.
 
 Now commit the changes and push them to trigger a new CI run.
 
@@ -56,32 +54,9 @@ distribute-on:
 
 </details>
 
-### 3. Create a custom template to install Fly.io
+### 3. `✨ BONUS` Create a custom template to install other dependencies
 
-Re-enable the `deploy` target in your CI config and check the output log. You should probably see an error about not being able to find `fly` in the PATH.
-
-```bash
-/bin/sh: 1: flyctl: not found
-```
-
-This is because the [default Nx Agents templates](https://github.com/nrwl/nx-cloud-workflows/tree/main/launch-templates) do not include the `fly` CLI.
-
-To use the Fly CLI on Nx Agents we need to create a custom launch template. Use the [docs](https://nx.dev/ci/reference/launch-templates) as a reference to create a new template in `.nx/workflows/agents.yaml`.
-
-<details>
-<summary>🐳&nbsp;&nbsp;Hint: Installing Fly.io</summary>
-
-```
-curl -L https://fly.io/install.sh | sh
-```
-
-To add it to the PATH, you can use the following command:
-
-```
-echo PATH="$HOME/.fly/bin:$PATH" >> $NX_CLOUD_ENV
-```
-
-</details>
+To customize the setup steps of Nx Agents, you can create a custom Launch Template. This is useful when you need to install additional dependencies or tools. Use the [docs](https://nx.dev/ci/reference/launch-templates) as a reference to create a new template in `.nx/workflows/agents.yaml`.
 
 <details>
 <summary>🐳&nbsp;&nbsp;Solution (custom launch template)</summary>
@@ -107,14 +82,15 @@ launch-templates:
           paths: |
             '../.cache/Cypress'
           base-branch: 'main'
+      - name: Install Pnpm 9
+        script: |
+          npm install -g pnpm@9 --force
       - name: Install Node Modules
         uses: 'nrwl/nx-cloud-workflows/v4/workflow-steps/install-node-modules/main.yaml'
       - name: Install Browsers (if needed)
         uses: 'nrwl/nx-cloud-workflows/v4/workflow-steps/install-browsers/main.yaml'
-      - name: Install Fly.io
-        script: |
-          curl -L https://fly.io/install.sh | sh
-          echo PATH="$HOME/.fly/bin:$PATH" >> $NX_CLOUD_ENV
+      # Install any other dependencies here
+      # After each Nx Agent reaches this point, it will be ready to execute tasks
 ```
 
 </details>
@@ -132,17 +108,10 @@ Inspect the Nx Cloud dashboard. You should see your new launch template being us
 
 ![custom-launch-template](../images/nx-cloud-custom-launch-template.png)
 
-> ⚠️&nbsp;&nbsp;Your Fly.io deployment might still not work. Check the logs on Nx CLoud to see why.
-
-Use the following [docs page](https://nx.dev/ci/reference/launch-templates#pass-environment-variables-to-agents) to fix the issue.
-
-<details>
-<summary>🐳&nbsp;&nbsp;Solution</summary>
-
-You need to forward the environment variables to the Nx Agents by using the `--with-env-vars` flag:
+If needed, you can forward environment variables to the Nx Agents by using the `--with-env-vars` flag on the `start-ci-run` command:
 
 ```bash
- --with-env-vars="SURGE_DOMAIN_STORE,SURGE_TOKEN,FLY_API_TOKEN"
+ --with-env-vars="MY_SECRET_TOKEN,MY_OTHER_TOKEN"
 ```
 
 </details>
